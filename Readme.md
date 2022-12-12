@@ -18,7 +18,7 @@ Mount any directories you'd like to back up as a volume and run
 |OPT_ARGUMENTS| |Any additional arguments to provide to the restic command|
 |RESTIC_PASSWORD| |Passphrase to use for encryption|
 |PATH_TO_BACKUP|/data|The path to the directory you wish to backup|
-|RESTORE_ON_EMPTY_START| |Set this to "true" and if the `$PATH_TO_BACKUP` is empty, it will restore the latest backup. This can be used for auto recovery from lost data|
+|RESTORE_ON_EMPTY_START| |Set this to "true" and it will restore the latest backup to the `$PATH_TO_BACKUP` and exit with code 0. This can be used for auto recovery from lost data. BE CAREFUL: `$PATH_TO_BACKUP` MUST BE EMPTY BEFORE RUN THIS COMMAND AND MUST BE MOUNT IN READ-WRITE MODE|
 |SKIP_ON_START| |Skips backup on start if set to "true"|
 |VERIFY_CRON_SCHEDULE| |If you want to verify your backups on a schedule, provide it here|
 

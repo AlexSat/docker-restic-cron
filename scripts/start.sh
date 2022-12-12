@@ -15,8 +15,9 @@ fi
 restic -r "$BACKUP_DEST" snapshots || restic -r "$BACKUP_DEST" init
 
 # If set to restore on start, restore if the data volume is empty
-if [ "$RESTORE_ON_EMPTY_START" == "true" ] && [ -z "$(ls -A "$PATH_TO_BACKUP")" ]; then
+if [ "$RESTORE_ON_EMPTY_START" == "true" ]; then
     /scripts/cron-exec.sh /scripts/restore.sh latest
+    exit 0
 fi
 
 # Unless explicitly skipping, take a backup on startup
