@@ -1,8 +1,8 @@
 FROM alpine:3.12
 
-ARG TARGETARCH
+ARG TARGETARCH=amd64
 
-RUN apk add --no-cache curl=~7 bash=~5 docker-cli
+RUN apk add --no-cache curl=~7 bash=~5
 
 ARG RCLONE_VERSION=v1.55.1
 
@@ -26,9 +26,5 @@ COPY ./scripts /scripts
 HEALTHCHECK CMD /scripts/healthcheck.sh
 
 VOLUME /root/.config
-VOLUME /scripts/backup/before
-VOLUME /scripts/backup/after
-VOLUME /scripts/restore/before
-VOLUME /scripts/restore/after
 
 CMD [ "/scripts/start.sh" ]

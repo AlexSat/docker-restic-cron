@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  restic:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./my-data:/data/my-data:ro
+      - ./my-data2:/data/my-data2:ro
+      - ./my-data3:/data/my-data3:ro
+    restart: unless-stopped
+    environment:
+      RESTIC_PASSWORD: ${BACKUP_PASSWORD}
+      CRON_SCHEDULE: "* * 17 * *"
+      #VERIFY_CRON_SCHEDULE: "* * * * *"
+      SKIP_ON_START: "true"
+      #Uncomment to restore latest backup
+      #RESTORE_ON_EMPTY_START: "true"
+      RCLONE_WEBDAV_URL: ${WEBDAV_URL}
+      RCLONE_WEBDAV_VENDOR: "other"
+      RCLONE_WEBDAV_USER: ${WEBDAV_LOGIN}
+      RCLONE_WEBDAV_PASS: ${WEBDAV_PASSWORD}
+      BACKUP_DEST: "rclone::webdav:${WEBDAV_FOLDER}"
