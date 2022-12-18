@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./my-data:/data/my-data
-      - ./my-data2:/data/my-data2
-      - ./my-data3:/data/my-data3
     environment:
       RESTIC_PASSWORD: ${BACKUP_PASSWORD}
       #CRON_SCHEDULE: "* * * * *"

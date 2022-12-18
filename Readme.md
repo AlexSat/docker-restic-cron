@@ -1,3 +1,7 @@
+# Changes from the original repository
+
+If you importing this repo as 'build' instead of image in docker-compose file, you can set build arg `HAS_BEFORE_AFTER_SCRIPTS=yes` and `BEFORE_AFTER_SCRIPTS_PATH=<...>` to copy scripts which will be run before and after backup/restore
+
 # Restic Backup
 
 [![Build Status](https://travis-ci.org/ViViDboarder/docker-restic-cron.svg?branch=master)](https://travis-ci.org/ViViDboarder/docker-restic-cron)

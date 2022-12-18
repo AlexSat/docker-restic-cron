@@ -1,6 +1,8 @@
-FROM alpine:3.12
+ARG HAS_BEFORE_AFTER_SCRIPTS=no
+FROM alpine:3.12 as base
 
 ARG TARGETARCH=amd64
+ARG BEFORE_AFTER_SCRIPTS_PATH
 
 RUN apk add --no-cache curl=~7 bash=~5
 
@@ -22,6 +24,14 @@ ENV CRON_SCHEDULE=""
 ENV VERIFY_CRON_SCHEDULE=""
 
 COPY ./scripts /scripts
+
+from base as before_after_scripts_yes
+ONBUILD COPY ${BEFORE_AFTER_SCRIPTS_PATH} /scripts/
+
+from base as before_after_scripts_no
+ONBUILD RUN echo "No before/after script folder was passed. So skip it."
+
+FROM before_after_scripts_${HAS_BEFORE_AFTER_SCRIPTS} as final
 
 HEALTHCHECK CMD /scripts/healthcheck.sh
 
