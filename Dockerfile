@@ -25,16 +25,10 @@ ENV VERIFY_CRON_SCHEDULE=""
 
 COPY ./scripts /scripts
 
-from base as before_after_scripts_yes
-ONBUILD COPY ${BEFORE_AFTER_SCRIPTS_PATH} /scripts/
-
-from base as before_after_scripts_no
-ONBUILD RUN echo "No before/after script folder was passed. So skip it."
-
-FROM before_after_scripts_${HAS_BEFORE_AFTER_SCRIPTS} as final
-
 HEALTHCHECK CMD /scripts/healthcheck.sh
 
 VOLUME /root/.config
+VOLUME /scripts/backup
+VOLUME /scripts/restore
 
 CMD [ "/scripts/start.sh" ]
