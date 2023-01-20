@@ -4,7 +4,7 @@ FROM alpine:3.12 as base
 ARG TARGETARCH=amd64
 ARG BEFORE_AFTER_SCRIPTS_PATH
 
-RUN apk add --no-cache curl=~7 bash=~5 docker-cli
+RUN apk add --no-cache curl=~7 bash=~5 docker-cli mysql mysql-client pv
 
 ARG RCLONE_VERSION=v1.55.1
 
