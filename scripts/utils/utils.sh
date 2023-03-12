@@ -75,6 +75,7 @@ function stopDockerContainers {
 
     for (( i=$min; i<$max; i++ ))
     do
+	echo "Stopping ${arrayContainers[$i]}"
         docker stop "${arrayContainers[$i]}" || true
     done
     echo "Dependent containers stopped: $1"
@@ -85,15 +86,16 @@ function stopDockerContainers {
  # @param1      - array with container names
  ##
 function startDockerContainers {
-    echo "Starting deppendent containers: $1"
+    echo "Starting in reverse order deppendent containers: $1"
     local arrayContainers=
     IFS=' ' read -r -a arrayContainers <<< "$1"
     local min=0
     local max=$(( ${#arrayContainers[@]} ))
 
-    for (( i=$min; i<$max; i++ ))
+    for (( i=$max-1; i>=$min; i-- ))
     do
+	echo "Starting ${arrayContainers[$i]}"
         docker start "${arrayContainers[$i]}" || true
     done
-    echo "Dependent containers started: $1"
+    echo "Dependent containers started in reverse order: $1"
 }
