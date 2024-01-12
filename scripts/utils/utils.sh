@@ -99,3 +99,34 @@ function startDockerContainers {
     done
     echo "Dependent containers started in reverse order: $1"
 }
+
+## 
+ # Use it to push backup status and finish time to pushgateway
+ # @param1      - backup_exit_code ($1 -eq 0 is success, $1 -gt 0 is failed)
+ # @param2	- system name
+ # @param3	- pushgateway url
+ ##
+function pushBackupFinishMetrics {
+    if [[ $1 -eq 0 ]]; then
+	success=1
+	textresult="success"
+    else
+	success=0
+	textresult="failed"
+    fi
+    udt=$(date +%s)
+    echo "Pushing backup status for system=$2: $textresult (ts:$udt)"
+    printf "backup_success_bool $success\nbackup_latest_finish_unix_timestamp $udt\n" | curl --data-binary @- $3/metrics/job/backup/system/$2
+}
+
+## 
+ # Use it to push backup start time to pushgateway
+ # @param1	- system name
+ # @param2	- pushgateway url
+ ##
+function pushBackupStartMetrics {
+    udt=$(date +%s)
+    echo "Pushing start time for system=$1: $udt"
+    printf "backup_latest_start_unix_timestamp $udt\n" | curl --data-binary @- $2/metrics/job/backup/system/$1
+}
+
