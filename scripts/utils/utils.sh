@@ -116,7 +116,7 @@ function pushBackupFinishMetrics {
     fi
     udt=$(date +%s)
     echo "Pushing backup status for system=$2: $textresult (ts:$udt)"
-    printf "backup_success_bool $success\nbackup_latest_finish_unix_timestamp $udt\n" | curl --data-binary @- $3/metrics/job/backup/system/$2
+    printf "backup_success_bool $success\nbackup_latest_finish_unix_timestamp $udt\n" | curl --data-binary @- $3/metrics/job/backup/system/$( printf %s "$2"|jq -sRr @uri )
 }
 
 ## 
@@ -127,6 +127,6 @@ function pushBackupFinishMetrics {
 function pushBackupStartMetrics {
     udt=$(date +%s)
     echo "Pushing start time for system=$1: $udt"
-    printf "backup_latest_start_unix_timestamp $udt\n" | curl --data-binary @- $2/metrics/job/backup/system/$1
+    printf "backup_latest_start_unix_timestamp $udt\n" | curl --data-binary @- $2/metrics/job/backup/system/$( printf %s "$1"|jq -sRr @uri )
 }
 

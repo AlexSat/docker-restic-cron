@@ -8,7 +8,7 @@ pushMetricsEnabled=1
 [[ -z "${BACKUP_METRICS_PUSHGATEWAY_URL}" ]] && pushMetricsEnabled=0
 [[ -z "${BACKUP_METRICS_SYSTEM_NAME}" ]] && pushMetricsEnabled=0
 
-[[ pushMetricsEnabled -eq 1 ]] && pushBackupStartMetrics ${BACKUP_METRICS_SYSTEM_NAME} ${BACKUP_METRICS_PUSHGATEWAY_URL}
+[[ pushMetricsEnabled -eq 1 ]] && pushBackupStartMetrics "${BACKUP_METRICS_SYSTEM_NAME}" "${BACKUP_METRICS_PUSHGATEWAY_URL}"
 
 exitCodesSum=0
 # Run pre-backup scripts
@@ -54,4 +54,4 @@ for f in /scripts/backup/after/*; do
     fi
 done
 
-[[ pushMetricsEnabled -eq 1 ]] && pushBackupFinishMetrics $exitCodesSum ${BACKUP_METRICS_SYSTEM_NAME} ${BACKUP_METRICS_PUSHGATEWAY_URL}
+[[ pushMetricsEnabled -eq 1 ]] && pushBackupFinishMetrics $exitCodesSum "${BACKUP_METRICS_SYSTEM_NAME}" "${BACKUP_METRICS_PUSHGATEWAY_URL}"
