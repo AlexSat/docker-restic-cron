@@ -10,6 +10,10 @@ for f in /scripts/restore/before/*; do
     fi
 done
 
+echo "Cleanup restoring directory"
+rm -v -r "$PATH_TO_BACKUP"/*
+echo "Cleanup completed"
+
 # shellcheck disable=SC2086
 restic \
     -r "$BACKUP_DEST" \
