@@ -6,12 +6,12 @@ ARG BEFORE_AFTER_SCRIPTS_PATH
 
 RUN apk add --no-cache curl=~7 bash=~5 docker-cli mysql mysql-client pv jq
 
-ARG RCLONE_VERSION=v1.55.1
+ARG RCLONE_VERSION=v1.69.0
 
 COPY ./scripts/install_rclone.sh /scripts/
 RUN /scripts/install_rclone.sh "$RCLONE_VERSION" "$TARGETARCH"
 
-ARG RESTIC_VERSION=0.12.0
+ARG RESTIC_VERSION=0.17.3
 
 COPY ./scripts/install_restic.sh /scripts/
 RUN /scripts/install_restic.sh "$RESTIC_VERSION" "$TARGETARCH"
