@@ -70,7 +70,7 @@ dobackup=1
 # To use zfs snapshots we need all environment variables and mountpoint for it
 backupWithZfsSnapshot=1
 [[ "${USE_ZFS_SNAPSHOT}" -ne "true" ]] && backupWithZfsSnapshot=0
-[[ "${DATASET_NAME}" -ne "true" ]] && backupWithZfsSnapshot=0
+[[ -z "${DATASET_NAME}" ]] && backupWithZfsSnapshot=0
 [[ -z "${SNAPSHOT_MOUNT_PATH}" ]] && backupWithZfsSnapshot=0
 mountpoint -q "${SNAPSHOT_MOUNT_PATH}" || backupWithZfsSnapshot=0
 
