@@ -11,7 +11,7 @@ ARG RCLONE_VERSION=v1.69.0
 COPY ./scripts/install_rclone.sh /scripts/
 RUN /scripts/install_rclone.sh "$RCLONE_VERSION" "$TARGETARCH"
 
-ARG RESTIC_VERSION=0.17.3
+ARG RESTIC_VERSION=0.18.1
 
 COPY ./scripts/install_restic.sh /scripts/
 RUN /scripts/install_restic.sh "$RESTIC_VERSION" "$TARGETARCH"
