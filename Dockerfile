@@ -1,10 +1,10 @@
 ARG HAS_BEFORE_AFTER_SCRIPTS=no
-FROM alpine:3.12 as base
+FROM alpine:3.20 as base
 
 ARG TARGETARCH=amd64
 ARG BEFORE_AFTER_SCRIPTS_PATH
 
-RUN apk add --no-cache curl=~7 bash=~5 docker-cli mysql mysql-client pv jq
+RUN apk add --no-cache curl bash docker-cli mysql mysql-client pv jq postgresql-client
 
 ARG RCLONE_VERSION=v1.69.0
 
